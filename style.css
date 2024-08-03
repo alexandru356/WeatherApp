@@ -13,15 +13,17 @@ body{
 .container{
     background-color: white;
     width: 300px;
-    height: 400px;
+    height: 100px;
     border-radius: 15px;
+    overflow: hidden;
+    
 }
 .search-bar{
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 27px;
     gap: 15px;
-
+    
 }
 .search-bar i{
     font-size: 35px;
