@@ -1,5 +1,3 @@
-// index.js
-import WEATHER_API_KEY from './apikey.js'; // Ensure the correct path and extension
 
 const cardExpand = document.getElementById("btn1").addEventListener("click", expand);
 const tempInfo = document.getElementById("temp");
@@ -9,7 +7,7 @@ const windSpeedInfo = document.querySelector(".wind");
 const feelsLikeInfo = document.querySelector(".feelsLike");
 const btnEvent = document.getElementById("btn1");
 const cityInput = document.getElementById('search');
-const apiKey = WEATHER_API_KEY;
+const apiKey = 'Your api key';
 
 btnEvent.addEventListener("click", async event => {
     event.preventDefault();
