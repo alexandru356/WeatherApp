@@ -1,7 +1,9 @@
 const cardExpand = document.getElementById("btn1").addEventListener("click", expand);
 const tempInfo = document.getElementById("temp");
+const specInfo = document.querySelector(".info");
 const humidityInfo = document.querySelector(".water");
 const windSpeedInfo = document.querySelector(".wind");
+const feelsLikeInfo = document.querySelector(".feelsLike");
 const btnEvent = document.getElementById("btn1");
 const cityInput = document.getElementById('search');
 const apiKey = 'a533f67b739103f1eb5741cecf08bb60';
@@ -51,42 +53,48 @@ async function getWeatherData(city) {
 
 function displayWeatherInfo(data){
     const {name : city, 
-           main: {temp, humidity}, 
+           main: {temp, humidity, feels_like}, 
            weather: [{description,id}],
            wind: {speed}} = data;
         
     const tempDisplay = document.createElement("p");
+    const feelLikeDisplay = document.createElement("p");
     const humidityDisplay = document.createElement("p");
     const windSpeedDisplay = document.createElement("p");
     const descDisplay = document.createElement("p");
     const weatherEmoji = document.createElement("p");
 
     tempDisplay.textContent = `${(temp - 273.15).toFixed(1)}°C`;
+    feelLikeDisplay.textContent = `${(feels_like - 273.15).toFixed(1)}°C`
     humidityDisplay.textContent = `${humidity}%`;
-    windSpeedDisplay.textContent = `${speed}Km/h`
+    windSpeedDisplay.textContent = `${(speed * 3.6).toFixed(1)}Km/h`
     descDisplay.textContent =  `${description}`;
     weatherEmoji.textContent = getWeatherEmoji(id);
     //Temp Display
     tempDisplay.classList.add("temp-display");
     tempInfo.innerText = '';
+    weatherEmoji.style.fontSize = "100px"
+
     tempInfo.appendChild(weatherEmoji);
     tempInfo.appendChild(tempDisplay);
     tempInfo.appendChild(descDisplay);
-
+    humidityInfo.innerHTML = '<i class="fa-solid fa-water"></i><div class="text">Humidity</div>';
+    windSpeedInfo.innerHTML = '<i class="fa-solid fa-wind"></i><div class="text">Wind Speed</div>';
+    feelsLikeInfo.innerHTML = '<i class="fa-solid fa-temperature-full"></i><div class="text">Feels Like</div>';
     //Style for Humidity && Display
-    humidityInfo.style.display = "flex";
-    humidityInfo.style.gap = "10px";
-    humidityInfo.style.alignItems = "center";
+    specInfo.style.display = "flex";
+    specInfo.style.alignItems = "center";
+    humidityInfo.style.gap = "5px";
     humidityInfo.style.fontSize = "15px";
-    humidityInfo.appendChild(humidityDisplay);
+
 
     //Style for Wind Speed && Display
-    windSpeedInfo.style.display = "flex";
-    windSpeedInfo.style.gap = "10px";
-    windSpeedInfo.style.alignItems = "center";
+    windSpeedInfo.style.gap = "5px";
     windSpeedInfo.style.fontSize = "15px";
+    //AppendChild the values
     windSpeedInfo.appendChild(windSpeedDisplay);
-
+    humidityInfo.appendChild(humidityDisplay);
+    feelsLikeInfo.appendChild(feelLikeDisplay);
 }
 
 function getWeatherEmoji(weatherId){
